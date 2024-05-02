@@ -39,6 +39,8 @@ services:
       SERVICE_NAME: mysql
     networks:
       - laravel
+    volumes:
+      - ./mysql:/var/lib/mysql
 
   php:
     build:
@@ -112,3 +114,14 @@ services:
       - "8025:8025"
     networks:
       - laravel
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: mysql
+    networks:
+        - laravel
+
